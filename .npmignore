@@ -1,0 +1,11 @@
+src/
+test/
+coverage/
+.idea/
+.git/
+.gitignore
+tsconfig.json
+jest.config.ts
+*.spec.ts
+*.spec.js
+node_modules/
