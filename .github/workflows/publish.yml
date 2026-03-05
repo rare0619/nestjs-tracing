@@ -12,8 +12,8 @@
 #
 # 关键要点：
 #   1. Node 24 自带 npm >= 11.5.1，原生支持 OIDC Trusted Publishers
-#   2. actions/setup-node 的 registry-url 会在 .npmrc 写入 _authToken=${NODE_AUTH_TOKEN}
-#      publish 前必须 unset NODE_AUTH_TOKEN，否则空 token 会阻断 OIDC 流程
+#   2. actions/setup-node 的 registry-url 配置 npm registry 地址
+#      同时 GitHub Actions 自动注入 OIDC token 作为 NODE_AUTH_TOKEN
 #   3. permissions.id-token: write 是 OIDC 的核心要求
 
 name: Publish to npm
