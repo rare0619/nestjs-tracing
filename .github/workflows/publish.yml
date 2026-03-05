@@ -9,6 +9,12 @@
 #     Repository:            nestjs-tracing
 #     Workflow filename:     publish.yml
 #     Environment name:      （留空）
+#
+# 关键要点：
+#   1. Node 24 自带 npm >= 11.5.1，原生支持 OIDC Trusted Publishers
+#   2. actions/setup-node 的 registry-url 会在 .npmrc 写入 _authToken=${NODE_AUTH_TOKEN}
+#      publish 前必须 unset NODE_AUTH_TOKEN，否则空 token 会阻断 OIDC 流程
+#   3. permissions.id-token: write 是 OIDC 的核心要求
 
 name: Publish to npm
 
@@ -31,11 +37,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Upgrade npm (OIDC trusted publishers requires npm >= 10.9.2)
-        run: npm install -g npm@latest && npm --version
 
       - name: Install dependencies
         run: npm install
@@ -65,4 +68,6 @@ jobs:
 
       - name: Publish to npm (OIDC)
         if: steps.version_check.outputs.skip != 'true'
-        run: npm publish --access public
+        run: |
+          unset NODE_AUTH_TOKEN
+          npm publish --access public
