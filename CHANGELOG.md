@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3] - 2026-03-05
+
+### Changed
+- CI/CD: 切换到 npm Trusted Publishers (OIDC) 发布，无需 NPM_TOKEN
+- 发布包自动附带 Sigstore provenance 签名（供应链安全）
+- 修复 `repository.url` 格式警告
+
 ## [1.2.0] - 2026-03-05
 
 ### Added
