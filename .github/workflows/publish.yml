@@ -68,6 +68,4 @@ jobs:
 
       - name: Publish to npm (OIDC)
         if: steps.version_check.outputs.skip != 'true'
-        run: |
-          unset NODE_AUTH_TOKEN
-          npm publish --access public
+        run: npm publish --access public
